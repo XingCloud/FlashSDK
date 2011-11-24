@@ -1,0 +1,2 @@
+package com.elex.tasks.base{
+	/**	 * Classes that want to informed by events broadcasted from Tasks should	 * implement this interface.	 * 	 * @author longyangxi	 */	public interface ITaskListener	{		function onTaskProgress(e:TaskEvent):void;		function onTaskComplete(e:TaskEvent):void;		function onTaskAbort(e:TaskEvent):void;		function onTaskError(e:TaskEvent):void;	}}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="XingCloudAS" default="main">
+	<property environment="env" />
+	<property name="FLEX_HOME" value="${env.FLEX_HOME}" />
+	<!--property name="FLEX_HOME" value="/Applications/Adobe Flash Builder 4.5/sdks/4.0.0" /-->
+	<property name="gencode" value="${basedir}/../gen_code" />
+	<property name="tempcode" value="${basedir}/../tempcode" />
+	<property name="docDir" value="${basedir}/../doc" />
+	<property name="keyFile"   value="${basedir}/src/com/xingcloud/core/Config.as"/>
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+	<condition property="dir.checkAudit">
+		<available file="${gencode}/auditchange/src" type="dir" />
+	</condition>
+	<condition property="dir.checkItem">
+		<available file="${gencode}/itemmodeling/src" type="dir" />
+	</condition>
+	<condition property="dir.checkSpec">
+		<available file="${gencode}/itemspecmodeling/src" type="dir" />
+	</condition>
+	<condition property="dir.checkTemp">
+		<available file="${tempcode}" type="dir" />
+	</condition>
+	<condition property="dir.checkUser">
+		<available file="${gencode}/itemmodeling/src/model/user" type="dir" />
+	</condition>
+	<target name="init">
+		<replace file="${keyFile}" token="#secret_key#" value="${skey}" summary="true"/>
+		<replace file="${keyFile}" token="#consumer_key#" value="${ckey}" summary="true"/>
+		<mkdir dir="${tempcode}" />
+		<mkdir dir="${docDir}" />
+	</target>
+	<target name="main" depends="pre.clean,init,audit.copy,item.copy,spec.copy,make.nomodel,make.hasmodel,doc,post.clean">
+	</target>
+	<target name="make.nomodel" unless="dir.checkUser">
+		<compc output="${basedir}/../xingcloudas.swc"  optimize="true">
+			<load-config filename="${basedir}/xingcloud-config.xml"/>
+			<include-sources dir="${basedir}/src" includes="*" />
+			<include-sources dir="${tempcode}" includes="*" />
+		</compc>
+	</target>
+	<target name="make.hasmodel" if="dir.checkUser">
+		<compc output="${basedir}/../xingcloudas.swc"  optimize="true">
+			<load-config filename="${basedir}/xingcloud-config-hasmodel.xml" />
+			<include-sources dir="${basedir}/src" includes="*" />
+			<include-sources dir="${tempcode}" includes="*" />
+		</compc>
+	</target>
+	<target name="audit.copy" if="dir.checkAudit">
+		<copy toDir="${tempcode}">
+			<fileset dir="${gencode}/auditchange/src" />
+		</copy>
+	</target>
+	<target name="item.copy" if="dir.checkItem">
+		<copy toDir="${tempcode}">
+			<fileset dir="${gencode}/itemmodeling/src" />
+		</copy>
+	</target>
+	<target name="spec.copy" if="dir.checkSpec">
+		<copy toDir="${tempcode}">
+			<fileset dir="${gencode}/itemspecmodeling/src" />
+		</copy>
+	</target>
+	<target name="doc">
+		<asdoc output="${docDir}" lenient="true" failonerror="true">
+			<load-config filename="${basedir}/xingcloud-doc.xml"/>
+			<doc-sources path-element="${basedir}/src" />
+			<doc-sources path-element="${tempcode}"/>
+
+		</asdoc>
+	</target>
+	<target name="pre.clean">
+		<delete>
+			<fileset dir="${basedir}/.." includes="xingcloudas.swc" />
+		</delete>
+		<delete dir="${tempcode}" />
+		<delete dir="${docDir}" />
+	</target>
+
+	<target name="post.clean">
+		<delete dir="${tempcode}" />
+	</target>
+</project>

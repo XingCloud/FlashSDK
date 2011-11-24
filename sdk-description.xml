@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sdk-description name="ActionScript SDK">
+<version name="1.2.2.3">
+	<modules>
+		<module name="Action" required="true">
+			<package>com.xingcloud.users.actions</package>
+		</module>
+		<module name="Audit Change" required="true">
+			<package>com.xingcloud.users.auditchange</package>
+		</module>
+		<module name="Item" required="true">
+			<package>com.xingcloud.items</package>
+		</module>
+		<module name="Locale" required="true">
+			<package>com.xingcloud.language</package>
+		</module>
+		<module name="User" required="true">
+			<package>com.xingcloud.users</package>
+		</module>
+		<module name="GDP" required="true">
+			<package>com.xingcloud.socialize</package>
+		</module>
+	</modules>	
+</version>
+</sdk-description>

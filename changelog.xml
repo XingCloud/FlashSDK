@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<changelog name="ActionScript SDK">
+<version name="1.2.2.3">
+bugfix
+1.修改正GDP初始化bug
+</version>
+<version name="1.2.2.2">
+bugfix
+1.本地调试信息获取调整
+</version>
+<version name="1.2.2.1">
+bugfix
+1.修正GDP无法正确获取appid的问题
+</version>
+<version name="1.2.2.0">
+feature
+1.去掉XingCloud中的needGDP属性，增加GDP环境监测，实现本地线上环境无缝切换。
+2.优化GDP相应流程
+</version>
+<version name="1.2.1.2">
+bugfix
+1.修复本地环境swf加载失败问题
+</version>
+<version name="1.2.1.1">
+bugfix
+1.修复SFS连接失败仍然会发送请求的bug
+2.修复webbase拼装错误和拼装时机
+3.修复GDP等待会超时的bug
+4.修复AssetLoader跨域加载swf问题
+5.修复字典类型解析有误的bug
+</version>
+<version name="1.2.1.0">
+feature
+1.日志输出加入对浏览器Console的支持
+bugfix
+1.修复在GDP环境不存在时线上加载进行不下去的bug
+2.修复多语言Font加载失败时会导致某些浏览器Flash Player崩溃的问题
+3.修正平台登陆后和GDP账号绑定失败的bug
+</version>
+<version name="1.2.0.1">
+bugfix
+1.修复兼容flash player 10.0.0的错误
+2.对打包请求输出详细日志
+</version>
+<version name="1.2.0.0">
+feature
+1.加入auditchange体系
+2.GDP相关功能的完善，和UserProfile整合
+3.对请求加入阻塞模式，即请求需要等上一个请求返回后才允许发送，保证数据包顺序的正确性
+4.增加日志输出面板，方便线上调试
+bugfix
+1.某些情况log打印失败
+2.压缩导致Rest安全验证的失效
+</version>
+<version name="1.1.1.3">
+bugfix
+1.修复批量加载swf的bug
+</version>
+<version name="1.1.1.2">
+bugfix
+1.修复profileservice加载失败
+</version>
+<version name="1.1.1.1">
+bugfix
+1.修复sfs重复连接的问题
+2.修复gdp配置获取失败问题
+3.修复字体文件加载失败报错问题
+</version>
+
+<version name="1.1.1.0">
+feature
+1.请求和返回数据的压缩
+2.去除服务中的多语言和物品，将其调用调整到相应的管理器中
+3.日志输出Debug类，支持输出复杂对象
+4.通过url获取加载队列中加载的内容
+5.Action允许自定义名称以便支持多级目录Action的调用
+bugfix
+1.修复某些服务会响应多次的问题
+</version>
+<version name="1.1.0.2">
+bugfix
+1.修复文档生成问题
+2.通过profileservice获取档案后自动进行更新
+3.修复PlatformLoginbug
+</version>
+<version name="1.1.0.0">
+feature
+1.登陆、注册、平台绑定接口
+2.获取用户档案接口，包括自己和朋友
+3.分离服务，提供ServiceManager提供服务的调用方式
+4.简化资源加载器，提供简单的多队列加载
+5.去除了自动登录，登陆并入服务体系
+</version>
+<version name="1.0.2.0">
+feature
+1.简化ItemSpec属性
+2.支持和后台通信时传递参数编码时制定需要编码的复杂类型(非动态对象)
+3.分离userprofile中的login操作
+4.包结构优化
+5.完善报错机制
+6.完善命令执行系统，包括并行命令和串行命令以及命令完成情况汇报
+7.简化调试时需要设置的参数
+8.支持action打包发送
+9.出错后重新发送队列
+bugfix
+1.Reflection bug修正
+2.ModelBase无法解析复杂类型
+</version>
+<version name="1.0.1.0">
+feature
+1.Action通信模式支持
+2.SFS通信支持(除文件服务外的其他通信)
+
+bugfix
+1.去掉remoting 60s 的时间限制
+2.服务出错提示出错的服务
+</version>
+<version name="1.0.0.0">
+feature
+1.加载外部配置文件
+2.整合新的GDP
+3.简化各种入口
+4.增加状态管理器统一进行资源缓存管理
+5.请求维护系统时间
+6.增加Tickmanager
+7.资源加载流程和模式的变更
+8.分拆Action和AuditChange两种交互
+9.增加自动处理AuditChange返回
+10.支持自动登录和自动加载物品信息
+11.ItemSpec数据内容支持多维数组解析
+12.gdp常用信息自动加载
+13.Elex改为XingCloud
+14.登录和注册逻辑分开，登录失败重试
+15.简单的模块的检查
+16.ant编译脚本，输出swc和docs
+17.注册和登录逻辑分开
+
+bugfix
+1.修复服务加载失败后没有错误抛出的错误
+2.修复用户信息和物品信息加载失败后没有事件抛出的错误
+3.修复资源加载进度统计有误的错误
+4.修复auditchange执行成功或失败后多次触发事件
+5.修复auditchange传递的参数中有xml时候导致后台解析对象出错
+</version>
+</changelog>
+
