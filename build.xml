@@ -2,11 +2,11 @@
 <project name="XingCloudAS" default="main">
 	<property environment="env" />
 	<property name="FLEX_HOME" value="${env.FLEX_HOME}" />
-	<!--property name="FLEX_HOME" value="/Applications/Adobe Flash Builder 4.5/sdks/4.0.0" /-->
 	<property name="gencode" value="${basedir}/../gen_code" />
 	<property name="tempcode" value="${basedir}/../tempcode" />
-	<property name="docDir" value="${basedir}/../doc" />
+	<property name="docDir" value="${basedir}/target/doc" />
 	<property name="keyFile"   value="${basedir}/src/com/xingcloud/core/Config.as"/>
+	<property name="output" value="${basedir}/target/xingcloudas.swc"/>
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 	<condition property="dir.checkAudit">
 		<available file="${gencode}/auditchange/src" type="dir" />
@@ -29,22 +29,27 @@
 		<mkdir dir="${tempcode}" />
 		<mkdir dir="${docDir}" />
 	</target>
-	<target name="main" depends="pre.clean,init,audit.copy,item.copy,spec.copy,make.nomodel,make.hasmodel,doc,post.clean">
+	<target name="main" depends="pre.clean,make,doc,post.clean">
 	</target>
-	<target name="make.nomodel" unless="dir.checkUser">
-		<compc output="${basedir}/../xingcloudas.swc"  optimize="true">
-			<load-config filename="${basedir}/xingcloud-config.xml"/>
+	<target name="make" depends="init,audit.copy,item.copy,spec.copy">
+		<compc output="${output}"  optimize="true">
+			<library-path dir="${basedir}/libs" append="true">
+				<include name="*.swc" />
+			</library-path>
+			<compiler.keep-as3-metadata>SecretData</compiler.keep-as3-metadata>
+			<compiler.headless-server>true</compiler.headless-server>
 			<include-sources dir="${basedir}/src" includes="*" />
 			<include-sources dir="${tempcode}" includes="*" />
 		</compc>
 	</target>
-	<target name="make.hasmodel" if="dir.checkUser">
-		<compc output="${basedir}/../xingcloudas.swc"  optimize="true">
-			<load-config filename="${basedir}/xingcloud-config-hasmodel.xml" />
-			<include-sources dir="${basedir}/src" includes="*" />
-			<include-sources dir="${tempcode}" includes="*" />
-		</compc>
-	</target>
+	<!--
+	<target name="make.action">
+			<compc output="${basedir}/../com.xingcloud.action.swc"  optimize="true">
+				<load-config filename="${basedir}/xingcloud-config-hasmodel.xml" />
+				<include-sources dir="${basedir}/src/com/" includes="*" />
+				<include-sources dir="${tempcode}" includes="*" />
+			</compc>
+		</target>-->
 	<target name="audit.copy" if="dir.checkAudit">
 		<copy toDir="${tempcode}">
 			<fileset dir="${gencode}/auditchange/src" />
@@ -62,16 +67,15 @@
 	</target>
 	<target name="doc">
 		<asdoc output="${docDir}" lenient="true" failonerror="true">
-			<load-config filename="${basedir}/xingcloud-doc.xml"/>
+			<library-path dir="${basedir}/libs" append="true">
+				<include name="*.swc" />
+			</library-path>
 			<doc-sources path-element="${basedir}/src" />
 			<doc-sources path-element="${tempcode}"/>
-
 		</asdoc>
 	</target>
 	<target name="pre.clean">
-		<delete>
-			<fileset dir="${basedir}/.." includes="xingcloudas.swc" />
-		</delete>
+		<delete file="${output}"/>
 		<delete dir="${tempcode}" />
 		<delete dir="${docDir}" />
 	</target>

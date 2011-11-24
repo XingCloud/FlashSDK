@@ -84,7 +84,7 @@ package com.xingcloud.net.connector
 			var request:URLRequest=new URLRequest(_url);
 			request.method=_requestMethod;
 			createParams(request);
-			if (_needAuth)
+			if (XingCloud.needAuth)
 				request.requestHeaders.push(new URLRequestHeader("Authorization", _header));
 			if (XingCloud.needCompress)
 				request.requestHeaders.push(new URLRequestHeader("Content-Encoding", "gzip"));

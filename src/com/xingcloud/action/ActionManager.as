@@ -1,6 +1,5 @@
 package com.xingcloud.action
 {
-	import com.xingcloud.core.Config;
 	import com.xingcloud.core.xingcloud_internal;
 	import com.xingcloud.net.RequestPacker;
 	
@@ -36,7 +35,7 @@ package com.xingcloud.action
 		 */
 		public function ActionManager(lock:singleLock)
 		{
-			packer=new RequestPacker(Config.ACTION_SERVICE);
+			packer=new RequestPacker("action.action.execute");
 			packer.blocking=false;
 		}
 

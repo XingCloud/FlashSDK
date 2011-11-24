@@ -1,7 +1,5 @@
 package com.xingcloud.core
 {
-	import com.xingcloud.socialize.SocialManager;
-	import com.xingcloud.util.Debug;
 	import flash.utils.Dictionary;
 	import flash.utils.describeType;
 	import flash.utils.getTimer;
@@ -23,7 +21,7 @@ package com.xingcloud.core
 		/**
 		 * action 模式服务地址
 		 * */
-		xingcloud_internal static const ACTION_SERVICE:String="action.action.execute";
+		xingcloud_internal static const ACTION_SERVICE:String="";
 		/**
 		 *auditechange 模式服务地址
 		 */
@@ -193,7 +191,7 @@ package com.xingcloud.core
 		 * */
 		public static function get platformAppId():String
 		{
-			return SocialManager.instance.appId;
+			return getConfig("platformAppId");
 		}
 
 		/**
@@ -201,7 +199,7 @@ package com.xingcloud.core
 		 * */
 		public static function get platformUserId():String
 		{
-			return SocialManager.instance.uid;
+			return  getConfig("platformUserId");
 		}
 
 
@@ -255,7 +253,7 @@ package com.xingcloud.core
 		 * 对配置进行初始化
 		 * @param config 自定义配置文件加载的路径
 		 */
-		xingcloud_internal static function init():void
+		xingcloud_internal static function init(gpdData:Object):void
 		{
 			//对需要保密的使用 ‘SecretData’元标签的数据解析
 			var metadatas:XMLList=describeType(Config).factory.metadata.(@name == "SecretData").arg;
@@ -264,6 +262,8 @@ package com.xingcloud.core
 			{
 				setConfig(metadatas[i].@key, String(metadatas[i].@value));
 			}
+			Config.xingcloud_internal::parseFromObject(gpdData);
+			setConfig("platformAppId", "xingcloudDebug");
 			setConfig("xa_target", "abtest");
 		}
 

@@ -1,6 +1,5 @@
 package com.xingcloud.net
 {
-	import com.xingcloud.core.Config;
 	import com.xingcloud.core.XingCloud;
 	import com.xingcloud.net.connector.Connector;
 	import com.xingcloud.net.connector.MessageResult;
@@ -8,7 +7,7 @@ package com.xingcloud.net
 	import com.xingcloud.tasks.tick.ITick;
 	import com.xingcloud.tasks.tick.TickManager;
 	import com.xingcloud.util.Debug;
-	import com.xingcloud.util.Reflection;
+	
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
@@ -75,6 +74,7 @@ package com.xingcloud.net
 		 *是否在通信的同时阻塞其他请求，以便保证请求的顺序
 		 */
 		public var blocking:Boolean;
+
 
 		//上次发送时间
 		private var _latestSendTime:int=0;

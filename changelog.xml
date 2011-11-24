@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <changelog name="ActionScript SDK">
+<version name="1.3.0.0">
+feature
+分拆SDK优化服务。
+</version>
+<version name="1.2.2.4">
+bugfix
+1.修正某些字体注册失败的bug
+</version>
 <version name="1.2.2.3">
 bugfix
 1.修改正GDP初始化bug

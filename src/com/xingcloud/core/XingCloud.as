@@ -1,27 +1,23 @@
 package com.xingcloud.core
 {
 	import com.xingcloud.event.XingCloudEvent;
-	import com.xingcloud.language.*;
 	import com.xingcloud.loader.DataLoader;
 	import com.xingcloud.loader.ResourceType;
 	import com.xingcloud.net.connector.RESTConnector;
 	import com.xingcloud.services.StatusManager;
-	import com.xingcloud.socialize.*;
-	import com.xingcloud.statistics.*;
 	import com.xingcloud.tasks.CompositeTask;
 	import com.xingcloud.tasks.SerialTask;
 	import com.xingcloud.tasks.Task;
 	import com.xingcloud.tasks.TaskEvent;
 	import com.xingcloud.tasks.tick.TickManager;
-	import com.xingcloud.util.Debug;
 	import com.xingcloud.util.Reflection;
+	
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.system.ApplicationDomain;
 	import flash.system.Security;
-	import flash.utils.Dictionary;
 
 	use namespace xingcloud_internal;
 
@@ -128,26 +124,14 @@ package com.xingcloud.core
 		 * @param app 程序根容器
 		 * @param configPath 外部自定义配置文件url
 		 */
-		public function init(app:Sprite, configPath:String=null):void
+		public function init(app:Sprite, GDPData:Object=null):void
 		{
 			_app=app;
 			Security.allowDomain("*");
 			TickManager.init(_app);
 			Reflection.addApplicationDomain(ApplicationDomain.currentDomain);
+			Config.init(GDPData);
 			var initTask:SerialTask=new SerialTask();
-			if (!isLocal && SocialManager.instance.connectToGDP)
-			{
-				var gdp:Task=SocialManager.instance.executor;
-				gdp.name="获取平台信息";
-				initTask.enqueue(gdp);
-			}
-			if (configPath)
-			{
-				var config:ConfigLoader=new ConfigLoader(configPath);
-				config.preventCache=true;
-				config.name="获取配置信息";
-				initTask.enqueue(config);
-			}
 			var status:Task=StatusManager.instance.executor;
 			status.name="获取服务状态信息";
 			initTask.enqueue(status);
@@ -160,7 +144,6 @@ package com.xingcloud.core
 
 		protected function onConfigComplete(event:TaskEvent):void
 		{
-			Config.init();
 			event.task.removeEventListener(TaskEvent.TASK_COMPLETE, onConfigComplete);
 			event.task.removeEventListener(TaskEvent.TASK_ERROR, onConfigError);
 			event.task.removeEventListener(TaskEvent.TASK_PROGRESS, onConfigProgress);
@@ -193,6 +176,7 @@ import com.xingcloud.core.xingcloud_internal;
 import com.xingcloud.event.XingCloudEvent;
 import com.xingcloud.loader.DataLoader;
 import com.xingcloud.loader.ResourceType;
+
 import flash.events.Event;
 
 use namespace xingcloud_internal;

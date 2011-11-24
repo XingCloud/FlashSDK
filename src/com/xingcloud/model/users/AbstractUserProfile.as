@@ -8,7 +8,6 @@ package com.xingcloud.model.users
 	import com.xingcloud.model.item.owned.OwnedItem;
 	import com.xingcloud.services.ProfileService;
 	import com.xingcloud.services.ServiceManager;
-	import com.xingcloud.socialize.PlatformAccount;
 	import mx.events.CollectionEvent;
 	import mx.events.PropertyChangeEvent;
 	import mx.events.PropertyChangeEventKind;
@@ -66,7 +65,6 @@ package com.xingcloud.model.users
 		private var _experience:uint;
 		private var _level:uint;
 
-		private var _platformAccount:PlatformAccount;
 		private var itemFields:Array=[]; //物品集的字段名记录
 		private var loadedNum:int;
 		private var needLoadNum:int;
@@ -144,14 +142,6 @@ package com.xingcloud.model.users
 					return item;
 			}
 			return null;
-		}
-
-		/**
-		 *平台账户信息,由GDP获取
-		 */
-		public function get platformAccount():PlatformAccount
-		{
-			return _platformAccount;
 		}
 
 		public function get level():uint
@@ -247,10 +237,6 @@ package com.xingcloud.model.users
 			ModelBase.dispatcher.dispatchEvent(event);
 		}
 
-		xingcloud_internal function specifyPlatformAccount(value:PlatformAccount):void
-		{
-			_platformAccount=value;
-		}
 
 		private function onCollectionChange(event:CollectionEvent):void
 		{

@@ -34,7 +34,7 @@ package com.xingcloud.services
 				}
 				else
 				{
-					platformIds.push({platformAppId: Config.platformAppId, platformUserId: user.platformAccount.userId});
+					platformIds.push({platformAppId: Config.platformAppId, platformUserId: Config.platformUserId});
 				}
 			}
 			_commandName=Config.USERPROFILE_SERVICE;

@@ -80,7 +80,7 @@ package com.xingcloud.services
 		{
 			if (_instance == null)
 			{
-				_instance=new ServiceManager(new lock);
+				_instance=new ServiceManager(new lock());
 
 			}
 			return _instance;
@@ -90,7 +90,7 @@ package com.xingcloud.services
 		 * 服务管理器，用于添加和加载服务
 		 * 不可直接在外部被实例化
 		 */
-		public function ServiceManager(lock:lock)
+		public function ServiceManager(l:lock)
 		{
 			_taskQueue=new SerialTask();
 		}
